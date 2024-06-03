@@ -1,7 +1,6 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
     "deploy": "npx hardhat deploy",
     "compile": "npx hardhat compile",
@@ -20,13 +19,15 @@
     "cryptocurrency"
   ],
   "author": "https://github.com/bobeu",
-  "license": "ISC",
+  "license": "MIT",
   "description": "",
   "dependencies": {
     "@openzeppelin/contracts": "^5.0.2",
     "dotenv": "^16.4.5",
+    "ethers": "5.7.2",
     "hardhat": "^2.22.4",
-    "hardhat-deploy": "^0.12.4"
+    "hardhat-deploy": "^0.12.4",
+    "wagmi": "^2.9.8"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.6",
@@ -44,6 +45,7 @@
     "@types/chai-as-promised": "^7.1.6",
     "@types/mocha": ">=9.1.0",
     "@types/node": ">=18.0.0",
+    "@types/react-blockies": "^1.4.4",
     "chai": "^4.2.0",
     "hardhat-gas-reporter": "^1.0.8",
     "solidity-coverage": "^0.8.0",

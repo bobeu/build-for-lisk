@@ -54,7 +54,7 @@ contract Factory is IFactory, Ownable {
      */
     function deposit() public payable override returns(bool){
         address alc;
-        Staker memory stk = _getStakeProfile(_msgSender());
+        Staker memory stk = _getProfile(_msgSender());
         if(msg.value < minDepositValue) revert NoValue(msg.value);
         alc = stk.wallet;
         if(alc == address(0)) {
@@ -131,16 +131,16 @@ contract Factory is IFactory, Ownable {
         require(IERC20Extended(token).mint(to, amount), "");
     }
 
-    function _getStakeProfile(address who) internal view returns(Staker memory) {
+    function _getProfile(address who) internal view returns(Staker memory) {
         return vault[who];
     } 
 
-    function getStakeProfile() public view returns(Staker memory stk) {
-        return _getStakeProfile(_msgSender());
+    function getProfile() public view returns(Staker memory stk) {
+        return _getProfile(_msgSender());
     }
 
     function withdraw() public { 
-        address alc = _getStakeProfile(_msgSender()).wallet;
+        address alc = _getProfile(_msgSender()).wallet;
         IInterWallet(alc).withdrawEth(_msgSender());
         IInterWallet(alc).withdrawERC20(_msgSender());
     }

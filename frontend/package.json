@@ -9,19 +9,28 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
     "@mui/icons-material": "^5.15.19",
     "@mui/material": "^5.15.19",
+    "@rainbow-me/rainbowkit": "^2.1.2",
+    "@tanstack/react-query": "^5.40.0",
+    "@wagmi/connectors": "^5.0.7",
+    "@web3modal/wagmi": "^4.2.3",
+    "antd": "^5.18.0",
     "dotenv": "^16.4.5",
-    "ethers": "^6.12.2",
+    "ethers": "5.7.2",
     "next": "14.2.3",
     "react": "^18",
+    "react-blockies": "^1.4.1",
     "react-dom": "^18",
     "viem": "^2.13.3",
-    "wagmi": "^2.9.8"
+    "wagmi": "^2.9.8",
+    "web3": "^4.9.0"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
+    "@types/react-blockies": "^1.4.4",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.19",
     "eslint": "^8",

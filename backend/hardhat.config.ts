@@ -10,14 +10,15 @@ const PRIVATE_KEY = String(process.env.PRIVATE_KEY);
 const config: HardhatUserConfig = {
   networks: {
     testnet: {
-        url: "https://",
+        url: "https://rpc.sepolia-api.lisk.com",
         accounts: [PRIVATE_KEY],
+        chainId: 4202
     },
   },
   namedAccounts: {
     deployer: {
       default: 0,
-      1111: `privatekey://${PRIVATE_KEY}`,
+      4202: `privatekey://${PRIVATE_KEY}`,
     },
   },
 

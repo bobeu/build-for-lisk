@@ -11,7 +11,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 	const {deployer } = await getNamedAccounts();
 
   const maxSupply = 1_000_000_000;
-  const minDepositValue = parseEther("0.001") ;
+  const minDepositValue = parseEther("0.000001") ;
   const networkName = getNetworkName();
   console.log("Network Name", networkName); 
 
