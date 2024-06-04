@@ -1,6 +1,7 @@
 import { getAddresses } from "./getAddresses";
 import { readContract, writeContract, simulateContract, waitForTransactionReceipt }from "wagmi/actions";
-import { type FunctionName, type OxString, type WagmiConfig, type Profile, type TransactionResultProps, transactionResult} from "@/interfaces";
+import { transactionResult } from "@/interfaces";
+import type { FunctionName, OxString, WagmiConfig, Profile, TransactionResultProps } from "@/interfaces";
 
 export const waitForConfirmation = async(config: WagmiConfig, hash: OxString) => {
   await waitForTransactionReceipt(config, {hash});
@@ -45,7 +46,7 @@ async function sendtransaction(options: {config: WagmiConfig, value?: bigint, ac
         break;
 
       case "getProfile":
-        result.result = await readContract(config, {
+        result.profile = await readContract(config, {
           abi: getProfileAbi,
           functionName: "getProfile",
           account,
@@ -55,7 +56,7 @@ async function sendtransaction(options: {config: WagmiConfig, value?: bigint, ac
         break;
 
       case "balanceOf":
-        result.result = await readContract(config, {
+        result.reward = await readContract(config, {
           abi: balanceOfAbi,
           functionName: "balanceOf",
           account,
@@ -71,7 +72,7 @@ async function sendtransaction(options: {config: WagmiConfig, value?: bigint, ac
 
       if(!result.view) {
         await waitForConfirmation(config, hash);
-        result.result = await readContract(config, {
+        result.profile = await readContract(config, {
           abi: getProfileAbi,
           functionName: "getProfile",
           account,

@@ -65,13 +65,13 @@ export interface AppProps {
 }
 
 export interface TransactionResultProps {
-  view: boolean; 
-  result: bigint | Profile | string | number | Profile
+  view: boolean;
+  reward?: bigint;
+  profile?: Profile;
 }
 
 export const transactionResult :TransactionResultProps = {
   view: false,
-  result: new MockProfile().profile
 }
 
 export interface SpinnerProps {
