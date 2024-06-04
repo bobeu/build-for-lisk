@@ -78,6 +78,13 @@ async function sendtransaction(options: {config: WagmiConfig, value?: bigint, ac
           account,
           address: factory
         });
+        result.reward = await readContract(config, {
+          abi: balanceOfAbi,
+          functionName: "balanceOf",
+          account,
+          address: token,
+          args: [account]
+        });
         cancelLoading?.();
       }
       

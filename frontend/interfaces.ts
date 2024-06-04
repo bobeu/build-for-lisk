@@ -1,7 +1,7 @@
 import React, { CSSProperties } from "react";
 import { zeroAddress } from "viem";
 
-export type FunctionName = "deposit" | "checkout" | "withdraw" | "getProfile" | "balanceOf" 
+export type FunctionName = "deposit" | "checkout" | "withdraw" | "getProfile" | "balanceOf" ;
 export type OxString = `0x${string}`;
 export type WagmiConfig = import('wagmi').Config;
 export const formatAddr = (x: string | (OxString | undefined)) : OxString => {

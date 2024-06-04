@@ -10,7 +10,7 @@ export default function Header() {
         <Disclosure as="nav" className="border-b border-black">
             {() => (
                 <>
-                    <div className="mx-auto px-2 sm:px-6 lg:px-8 border-b-2 border-b-stone-700 text-stone-300">
+                    <div className="mx-auto px-2 sm:px-6 lg:px-8 text-stone-300">
                         <div className="relative flex h-16 justify-between">
                             <div className="flex flex-shrink-0 items-center">
                                 <span>

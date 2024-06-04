@@ -14,9 +14,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         <React.Fragment>
             <Box className="w-full flex flex-col justify-center item-center h-screen bg-black text-white">
                 <Header />
-                <Box className="mx-auto py-4 h-full">
+                <Container maxWidth="lg" className="mx-auto my-6 h-full">
                     {children}
-                </Box>
+                </Container>
                 <Footer />
             </Box>
         </React.Fragment>
