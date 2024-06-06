@@ -12,13 +12,13 @@ interface LayoutProps {
 const Layout: FC<LayoutProps> = ({ children }) => {
     return (
         <React.Fragment>
-            <Box className="w-full flex flex-col justify-center item-center h-screen bg-black text-white">
+            <Stack className="w-full flex flex-col justify-center item-center h-screen md:h-full bg-black text-white">
                 <Header />
-                <Container maxWidth="lg" className="mx-auto my-6 h-full">
+                <Container maxWidth="lg" className="mx-auto my-6">
                     {children}
                 </Container>
                 <Footer />
-            </Box>
+            </Stack>
         </React.Fragment>
     );
 };

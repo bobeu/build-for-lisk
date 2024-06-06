@@ -123,78 +123,76 @@ export default function App() {
 
   return (
     <React.Fragment>
-      <Box className="w-full sm:h-[fit-content] sm:bg-black">
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={6}>
-            <Stack className="w-full h-[500px] text-cyan-200 text-lg font-serif border-2 border-stone-700 rounded-xl p-4 space-y-4">
+      <Grid container xs spacing={4} className="h-screen overflow-y-auto">
+        <Grid item xs={12} md={6}>
+          <Stack className="w-full h-[fit-content] md:h-[500px] text-cyan-200 text-lg font-serif border-2 border-stone-700 rounded-xl p-4 space-y-4">
+            {
+              sidebar_button_content.map(({endIcon, startIcon}) => (
+                <button disabled className="w-full flex justify-between items-center rounded-lg p-4 bg-stone-900">
+                  <h3>{startIcon}</h3>
+                  <h3>{endIcon}</h3>
+                </button>
+              ))
+            }
+            <Box className="space-y-2">
+              <button onClick={handleContractDisplayClick} className="w-full border-2 border-stone-900 bg-stone-800 hover:bg-stone-700 p-4 rounded-lg font-semibold">Select actions</button>
               {
-                sidebar_button_content.map(({endIcon, startIcon}) => (
-                  <button disabled className="w-full flex justify-between items-center rounded-lg p-4 bg-stone-900">
-                    <h3>{startIcon}</h3>
-                    <h3>{endIcon}</h3>
-                  </button>
-                ))
+                displayFunc && 
+                  <div className={`w-full max-h-[190px] py-4 overflow-y-auto flex flex-col border-2 border-stone-900 rounded-lg space-y-2 p-4 bg-stone-800`}>
+                    {
+                      ACTIONS.map((item, i) => (
+                        <button className="border-2 font-serif border-cyan-500 text-left hover:bg-stone-800 p-4 rounded-lg" onClick={() => handleContractFunction(i)} key={item}>{item}</button>
+                      ))
+                    }
+                  </div>
               }
-              <Box className="space-y-2">
-                <button onClick={handleContractDisplayClick} className="w-full border-2 border-stone-900 bg-stone-800 hover:bg-stone-700 p-4 rounded-lg font-semibold">Select actions</button>
-                {
-                  displayFunc && 
-                    <div className={`w-full max-h-[190px] py-4 overflow-y-auto flex flex-col border-2 border-stone-900 rounded-lg space-y-2 p-4 bg-stone-800`}>
-                      {
-                        ACTIONS.map((item, i) => (
-                          <button className="border-2 font-serif border-cyan-500 text-left hover:bg-stone-800 p-4 rounded-lg" onClick={() => handleContractFunction(i)} key={item}>{item}</button>
-                        ))
-                      }
-                    </div>
-                }
-              </Box>
-            </Stack>
-          </Grid>
-          <Grid item xs={12} md={12}>
-            <Stack spacing={12} className="h-[500px] border-2 border-stone-700 rounded-xl p-4">
-              <Stack spacing={6}>
-                <div className="flex justify-between items-center text-3xl font-serif border-2 border-stone-700 rounded-xl p-4">
-                  <h3>{`Invest $ETH`}</h3>
-                  <h3>{`Earn $ERN`}</h3>
-                </div>
-                <div className="w-full flex justify-between items-center text-3xl font-serif border-2 border-stone-700 rounded-xl p-4">
-                  <h3>{`Min. Investment`}</h3>
-                  <h3>{`0.000001 $ETH`}</h3>
-                </div>
-              </Stack>
-              <Stack className="place-items-center text-3xl font-serif " component="form" onSubmit={handleSubmit} noValidate>
-                {FUNC_NAMES[nameIndex] === "deposit" && (
-                  <input 
-                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => handleAmountChange(e)}
-                    type="number"
-                    id="Deposit"
-                    placeholder="Amount you're willing to invest"
-                    required
-                    name="deposit"
-                    className="w-full text-lg bg-transparent rounded-lg p-2 text-cyan-100"
-                  />
-                )}
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{
-                    mt: 3,
-                    mb: 2,
-                    height: '100px',
-                    fontWeight: "bold",
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                  }}
-                >
-                  { loading? <div className="flex justify-between items-center"><h3>{`Trxn in Progress ... `}</h3><Spinner color={"white"} /></div> : ACTIONS[nameIndex] }
-                  </Button>
-              </Stack>
-            </Stack>
-          </Grid>
+            </Box>
+          </Stack>
         </Grid>
-      </Box>
+        <Grid item xs={12} md={6}>
+          <Stack spacing={12} className="h-[fit-content] md:h-[500px] border-2 border-stone-700 rounded-xl p-4">
+            <Stack spacing={6}>
+              <div className="flex justify-between items-center text-3xl font-serif border-2 border-stone-700 rounded-xl p-4">
+                <h3>{`Invest $ETH`}</h3>
+                <h3>{`Earn $ERN`}</h3>
+              </div>
+              <div className="w-full flex justify-between items-center text-3xl font-serif border-2 border-stone-700 rounded-xl p-4">
+                <h3>{`Min. Investment`}</h3>
+                <h3>{`0.000001 $ETH`}</h3>
+              </div>
+            </Stack>
+            <Stack className="place-items-center text-3xl font-serif " component="form" onSubmit={handleSubmit} noValidate>
+              {FUNC_NAMES[nameIndex] === "deposit" && (
+                <input 
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => handleAmountChange(e)}
+                  type="number"
+                  id="Deposit"
+                  placeholder="Amount you're willing to invest"
+                  required
+                  name="deposit"
+                  className="w-full text-lg bg-transparent rounded-lg p-2 text-cyan-100"
+                />
+              )}
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  mb: 2,
+                  height: '100px',
+                  fontWeight: "bold",
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}
+              >
+                { loading? <div className="flex justify-between items-center"><h3>{`Trxn in Progress ... `}</h3><Spinner color={"white"} /></div> : ACTIONS[nameIndex] }
+                </Button>
+            </Stack>
+          </Stack>
+        </Grid>
+      </Grid>
     </React.Fragment>
   );
 }
