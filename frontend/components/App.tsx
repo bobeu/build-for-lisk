@@ -18,7 +18,7 @@ function getTimeFromEpoch(onchainUnixTime:BigNumber) {
 }
 
 export default function App() {
-  const [names, setNames] = React.useState<{name: string, functionName: FunctionName}>({name: "Lock Eth", functionName: "deposit"});
+  const [nameIndex, setNames] = React.useState<number>(0);
   const [amtToinvest, setAmtToInvest] = React.useState<number>(0);
   const [tokenRewardBalance, setReward] = React.useState<bigint>(0n);
   const [response, setResponse] = React.useState<Profile>(new MockProfile().profile);
@@ -52,7 +52,7 @@ export default function App() {
     return () => controller.abort();
   }, [response, account]);
 
-  const handleContractFunction = (arg: {name: string, functionName: FunctionName}) => {
+  const handleContractFunction = (arg: number) => {
     setNames(arg);
     setDisplayFunc(false);
   };
@@ -73,7 +73,7 @@ export default function App() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const amtInBigNumber = bn(ethers.utils.parseEther(amtToinvest.toString()).toBigInt());
-    if(names.functionName == "deposit")  {
+    if(FUNC_NAMES[nameIndex] == "deposit")  {
       if (amtToinvest === 0) {
         cancelLoading();
         return alert("Please enter amount of Eth to invest in wei");
@@ -81,14 +81,16 @@ export default function App() {
     }
     if(!account) return;
     setLoading(true);
+    console.log("FUNC_NAMES[nameIndex]", FUNC_NAMES[nameIndex])
     const value = amtInBigNumber.toBigInt();
     const result = await sendtransaction({
       value, 
-      functionName: names.functionName, 
+      functionName: FUNC_NAMES[nameIndex], 
       cancelLoading, 
       account, 
       config
      });
+     console.log("Result", result);
 
     if(!result?.view) {
       openNotification({message: "Transaction completed with hash:", description: ""});
@@ -97,6 +99,7 @@ export default function App() {
         setResponse(result.profile);
       }
       if(result.reward) {
+        console.log("Result", result.reward.toString());
         setReward(result.reward);
       }
     }
@@ -121,8 +124,8 @@ export default function App() {
   return (
     <React.Fragment>
       <Box className="w-full">
-        <Grid container xs spacing={4}>
-          <Grid item md={6}>
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={6}>
             <Stack className="w-full h-[500px] text-cyan-200 text-lg font-serif border-2 border-stone-700 rounded-xl p-4 space-y-4">
               {
                 sidebar_button_content.map(({endIcon, startIcon}) => (
@@ -138,8 +141,8 @@ export default function App() {
                   displayFunc && 
                     <div className={`w-full max-h-[190px] py-4 overflow-y-auto flex flex-col border-2 border-stone-900 rounded-lg space-y-2 p-4 bg-stone-800`}>
                       {
-                        ACTIONS.map((item) => (
-                          <button className="border-2 font-serif border-cyan-500 text-left hover:bg-stone-800 p-4 rounded-lg" onClick={() => handleContractFunction(item)} key={item.functionName}>{item.name}</button>
+                        ACTIONS.map((item, i) => (
+                          <button className="border-2 font-serif border-cyan-500 text-left hover:bg-stone-800 p-4 rounded-lg" onClick={() => handleContractFunction(i)} key={item}>{item}</button>
                         ))
                       }
                     </div>
@@ -147,7 +150,7 @@ export default function App() {
               </Box>
             </Stack>
           </Grid>
-          <Grid item xs={6} >
+          <Grid item xs={12} md={12}>
             <Stack spacing={12} className="h-[500px] border-2 border-stone-700 rounded-xl p-4">
               <Stack spacing={6}>
                 <div className="flex justify-between items-center text-3xl font-serif border-2 border-stone-700 rounded-xl p-4">
@@ -160,7 +163,7 @@ export default function App() {
                 </div>
               </Stack>
               <Stack className="place-items-center text-3xl font-serif " component="form" onSubmit={handleSubmit} noValidate>
-                {names.functionName === "deposit" && (
+                {FUNC_NAMES[nameIndex] === "deposit" && (
                   <input 
                     onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => handleAmountChange(e)}
                     type="number"
@@ -185,7 +188,7 @@ export default function App() {
                     alignItems: 'center'
                   }}
                 >
-                  { loading? <div className="flex justify-between items-center"><h3>{`Trxn in Progress ... `}</h3><Spinner color={"white"} /></div> : names.name }
+                  { loading? <div className="flex justify-between items-center"><h3>{`Trxn in Progress ... `}</h3><Spinner color={"white"} /></div> : ACTIONS[nameIndex] }
                   </Button>
               </Stack>
             </Stack>
@@ -196,25 +199,11 @@ export default function App() {
   );
 }
 
-const ACTIONS: {name: string, functionName: FunctionName}[] = [
-  {
-    name: "Lock Eth",
-    functionName: "deposit"
-  },
-  {
-    name: "UnLock Eth",
-    functionName: "checkout"
-  },
-  {
-    name: "Withdraw Eth",
-    functionName: "withdraw"
-  },
-  {
-    name: "Onchain profile",
-    functionName: "getProfile"
-  },
-  {
-    name: "Onchain balance",
-    functionName: "balanceOf"
-  },
-]
+const FUNC_NAMES : FunctionName[] = ["deposit", "checkout", "withdraw", "getProfile", "balanceOf"];
+const ACTIONS: string[] = [
+    "Lock Eth",
+    "UnLock Eth",
+    "Withdraw Eth",
+    "Onchain profile",
+    "Onchain balance",
+];

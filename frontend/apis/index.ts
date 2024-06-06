@@ -85,8 +85,8 @@ async function sendtransaction(options: {config: WagmiConfig, value?: bigint, ac
           address: token,
           args: [account]
         });
-        cancelLoading?.();
       }
+      cancelLoading?.();
       
     } catch (error) {
       console.log(error);

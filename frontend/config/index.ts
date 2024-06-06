@@ -1,7 +1,7 @@
 import { createConfig, http } from "wagmi"
 import { liskSepolia } from "wagmi/chains";
 // import { injected, walletConnect } from "wagmi/connectors";
-import { injectedWallet } from "@rainbow-me/rainbowkit/wallets";
+import { injectedWallet, coinbaseWallet, metaMaskWallet, walletConnectWallet } from "@rainbow-me/rainbowkit/wallets";
 import { connectorsForWallets } from "@rainbow-me/rainbowkit";
 
 // // My project ID. You can get one at https://cloud.walletconnect.com
@@ -12,12 +12,12 @@ export const connectors = connectorsForWallets(
   [
     {
       groupName: "Recommended",
-      wallets: [injectedWallet],
+      wallets: [injectedWallet, coinbaseWallet, metaMaskWallet, walletConnectWallet],
     },
   ],
   {
       appName: "GeneriFi",
-      projectId: "01934b1b14be39ddf47490f1bfc1527a",
+      projectId,
   }
 );
 
