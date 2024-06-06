@@ -123,7 +123,7 @@ export default function App() {
 
   return (
     <React.Fragment>
-      <Box className="w-full">
+      <Box className="w-full sm:h-[fit-content] sm:bg-black">
         <Grid container spacing={4}>
           <Grid item xs={12} md={6}>
             <Stack className="w-full h-[500px] text-cyan-200 text-lg font-serif border-2 border-stone-700 rounded-xl p-4 space-y-4">
